@@ -6,8 +6,58 @@
     <link rel="stylesheet" href="./assets/style.css">
 </header>
 <body>
+    <button id="add-game">Click Here</button>
+    <dialog id="log-dialog">
+        <form id="log-content">
+            <h3>Details</h3>
+            <div id="log-input-fields">
+                <label>Date:</label>
+                <input type="date" id="date">
+                <label>Game Type:</label>
+                <select>
+                    <option disabled selected value>- - Select An Option - -</option>
+                    <option value="Casual">Causal</option>
+                    <option value="League">League</option>
+                    <option value="Tournament">Tournament</option>
+                </select>
+                <label>Category:</label>
+                <select>
+                    <option disabled selected value>- - Select An Option - -</option>
+                    <option value="Singles">Singles</option>
+                    <option value="Doubles">Doubles</option>
+                </select>
+                <label>Win Or Loss:</label>
+                <select>
+                    <option disabled selected value>- - Select An Option - -</option>
+                    <option>Win</option>
+                    <option>Loss</option>
+                </select>
+                <label>Score:</label>
+                <div>
+                    <input type="number" min="0" max="30" value="0" placeholder="you">
+                    <span>-</span>
+                    <input type="number" min="0" max="30" value="0" placeholder="other">
+                </div>
+                <label>Duration (mins.):</label>
+                <input type="number" value="1" min="1">
+                <label>Location:</label>
+                <input type="text">
+                <label>Paddle Used:</label>
+                <input type="text">
+            </div>
+            <div>
+                <button id="log-reset-button">Reset</button>
+                <button id="log-cancel-button">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="confirmation-dialog">
+        <div id="confirmation-content">
+            <p id="confirmation-message"><p>
+            <button id="confirmation-yes">Yes</button>
+            <button id="confirmation-no">No</button>
+        </div>
+    </dialog>
     <script src="./assets/app.js" charset="UTF-8"></script>
 </body>
-
-
 </html>

@@ -1,0 +1,12 @@
+.log-input-field-format,.log-fieldset{
+    display:flex;
+    flex-direction:column;
+}
+
+.visible{
+    display:block;
+}
+
+.hidden{
+    display:none;
+}

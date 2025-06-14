@@ -11,40 +11,71 @@
         <form id="log-content">
             <h3>Details</h3>
             <div id="log-input-fields">
-                <label>Date:</label>
+                <label for="date">Date:</label>
                 <input type="date" id="date">
-                <label>Game Type:</label>
-                <select>
+                <label for="game-type">Game Type:</label>
+                <select id="game-type">
                     <option disabled selected value>- - Select An Option - -</option>
                     <option value="Casual">Causal</option>
                     <option value="League">League</option>
                     <option value="Tournament">Tournament</option>
                 </select>
-                <label>Category:</label>
-                <select>
+                <label for="format">Format:</label>
+                <select id="format">
                     <option disabled selected value>- - Select An Option - -</option>
                     <option value="Singles">Singles</option>
                     <option value="Doubles">Doubles</option>
                 </select>
-                <label>Win Or Loss:</label>
-                <select>
+                <label for="match-result">Match Result:</label>
+                <select id="match-result">
                     <option disabled selected value>- - Select An Option - -</option>
                     <option>Win</option>
                     <option>Loss</option>
                 </select>
-                <label>Score:</label>
-                <div>
-                    <input type="number" min="0" max="30" value="0" placeholder="you">
-                    <span>-</span>
-                    <input type="number" min="0" max="30" value="0" placeholder="other">
-                </div>
-                <label>Duration (mins.):</label>
-                <input type="number" value="1" min="1">
-                <label>Location:</label>
-                <input type="text">
-                <label>Paddle Used:</label>
-                <input type="text">
+                <fieldset>
+                    <legend>Score</legend>
+                    <div id="log-fieldset">
+                        <label for="your-score">Yours:</label>
+                         <input type="number" min="0" max="30" value="0" placeholder="you" id="your-score">
+                         <label for="opponent-score">Opponent:</label>
+                        <input type="number" min="0" max="30" value="0" placeholder="you" id="opponent-score">
+                    </div>
+                </fieldset>
+                <label for="duration">Match Duration (mins.):</label>
+                <input type="number" value="1" min="1" id="duration">
+                <fieldset>
+                    <legend>Location</legend>
+                    <div id="log-location-fieldset">
+                        <label for="court">Court Name:</label>
+                        <input type="text" min="1" max=30 id="court" placeholder="Palmer Pickleball Courts">
+                        <label for="city">City:</label>
+                        <input type="text" min="1" max=30 id="city" placeholder="Burlington">
+                        <label for="province">Province:</label>
+                        <input type="text" min="1" max=30 id="province" placeholder="Ontario">
+                    </div>
+                </fieldset>
+                <label for="paddle">Paddle Used:</label>
+                <input type="text" id="paddle">
             </div>
+            <dialog id="player-dialog">
+                <form id="player-content">
+                    <h3>Player Information</h3>
+                    <div>
+                        <label>Participant's Names</label>
+                        <input type="text">
+                        <input type="text">
+                        <span>Versus</span>
+                        <input type="text">
+                        <input type="text">
+                    </div>
+                    <div>
+                        <button>Back</button>
+                        <button>Cancel</button>
+                        <button>Submit</button>
+                    </div>
+                </form>
+            </dialog>
+
             <div>
                 <button id="log-reset-button">Reset</button>
                 <button id="log-cancel-button">Cancel</button>

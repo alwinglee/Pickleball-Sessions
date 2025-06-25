@@ -1,4 +1,4 @@
-.log-input-field-format,.log-fieldset{
+.log-structure{
     display:flex;
     flex-direction:column;
 }

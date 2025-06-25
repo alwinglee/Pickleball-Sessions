@@ -6,76 +6,86 @@
     <link rel="stylesheet" href="./assets/style.css">
 </header>
 <body>
-    <button id="add-game">Click Here</button>
+    <button id="add-session">Click Here</button>
     <dialog id="log-dialog">
-        <form id="log-content">
+        <form id="log-dialog-content">
             <h3>Match Details</h3>
             <p>* Required fields</p>
-            <div class="log-input-field-format" id="log-match-details">
-                <label for="date">Date*</label>
-                <input type="date" id="date">
-                <label for="game-type">Game Type*</label>
-                <select id="game-type">
-                    <option disabled selected value>- - Select An Option - -</option>
-                    <option value="Casual">Causal</option>
-                    <option value="League">League</option>
-                    <option value="Tournament">Tournament</option>
-                </select>
-                <fieldset class="log-fieldset">
-                    <legend>Match Configuration</legend>
-                    <label for="format">Format*</label>
-                    <select id="format">
+            <div id="log-match-details">
+                <label class="log-structure" for="date">Date*
+                    <input type="date" id="date" required>
+                </label>
+                <label class="log-structure" for="game-type">Game Type*
+                    <select id="game-type" required>
                         <option disabled selected value>- - Select An Option - -</option>
-                        <option value="Singles">Singles</option>
-                        <option value="Doubles">Doubles</option>
+                        <option value="Casual">Causal</option>
+                        <option value="League">League</option>
+                        <option value="Tournament">Tournament</option>
                     </select>
-                    <div class="log-fieldset">
-                        <label>Your Team*</label>
-                        <input disabled type="text" min="5" max="30">
-                        <input disabled type="text" min="5" max="30">
-                        <label>Opponent Team*</label>
-                        <input disabled type="text"min="5" max="30">
-                        <input disabled type="text"min="5" max="30">
+                </label>
+                <fieldset class="log-structure" id="log-match-configuration">
+                    <legend>Match Configuration</legend>
+                    <label class="log-structure" for="log-match-format">Format
+                        <select id="log-match-format" required>
+                            <option disabled selected value>- - Select An Option - -</option>
+                            <option value="Singles">Singles</option>
+                            <option value="Doubles">Doubles</option>
+                        </select>
+                    </label>
+                    <div>
+                        <label class="log-structure">Your Team*
+                            <input class="singles" id="your-team-name1" disabled type="text" min="5" max="30" placeholder="You">
+                            <input class="doubles" id="your-team-name2" disabled type="text" min="5" max="30" placeholder="Teammate">
+                        </label>
+                        <label class="log-structure">Opponent Team*
+                            <input class="singles" id="opponent-team-name1" disabled type="text"min="5" max="30" placeholder="Opponent 1">
+                            <input class="doubles" id="opponent-team-name2" disabled type="text"min="5" max="30" placeholder="Opponent 2">
+                        </label>
                     </div>
                 </fieldset>
                 <fieldset class="log-fieldset">
                     <legend>Match Outcome</legend>
-                    <label for="match-result">Result*</label>
-                    <select id="match-result">
-                        <option disabled selected value>- - Select An Option - -</option>
-                        <option>Win</option>
-                        <option>Loss</option>
-                    </select>
-                    <label for="your-score">Your Score*</label>
-                    <input type="number" min="0" max="21" value="0" placeholder="you" id="your-score">
-                    <label for="opponent-score">Opponent's Score*</label>
-                    <input type="number" min="0" max="21" value="0" placeholder="you" id="opponent-score">
-                
+                    <label class="log-structure" for="log-match-result">Result*
+                        <select id="log-match-result" required>
+                            <option disabled selected value>- - Select An Option - -</option>
+                            <option value="Win">Win</option>
+                            <option value="Loss">Loss</option>
+                        </select>
+                    </label>
+                    <label class="log-structure" for="log-match-your-score">Your Score*
+                        <input type="number" required min="0" max="21"  id="log-match-your-score">
+                    </label>
+                    <label class="log-structure" for="log-match-opponent-score">Opponent's Score*
+                        <input type="number" required min="0" max="21" id="log-match-opponent-score">
+                    </label>
                 </fieldset>
             </div>
-            <div class="log-input-field-format hidden" id="log-match-logistics">
-                <label for="duration">Match Duration (mins.)*</label>
-                <input type="number" value="1" min="1" id="duration">
+            <div class="log-input-field-format" id="log-match-logistics">
+                <label class="log-structure" for="duration">Match Duration (mins.)*
+                    <input type="number" min="1" id="duration" required>
+                </label>
                 <fieldset>
-                    <legend>Location*</legend>
-                    <div class="log-fieldset">
-                        <label for="court">Court Name:</label>
-                        <input type="text" min="1" max=30 id="court" placeholder="Palmer Pickleball Courts">
-                        <label for="city">City:</label>
-                        <input type="text" min="1" max=30 id="city" placeholder="Burlington">
-                        <label for="province">Province:</label>
-                        <input type="text" min="1" max=30 id="province" placeholder="Ontario">
-                    </div>
+                    <legend>Match Location</legend>
+                    <label class="log-structure" for="court">Court Name*
+                        <input type="text" required min="1" max=30 id="court" placeholder="Palmer Pickleball Courts">
+                    </label>
+                    <label class="log-structure" for="city">City*
+                        <input type="text" required min="1" max=30 id="city" placeholder="Burlington">
+                    </label>
+                    <label class="log-structure" for="province">Province*
+                        <input type="text" required min="1" max=30 id="province" placeholder="Ontario">
+                    </label>
                 </fieldset>
-                <label for="paddle">Paddle Used:</label>
-                <input type="text" id="paddle">
+                <label class="log-structure" for="paddle">Paddle Used
+                    <input type="text" max="30" id="paddle" required>
+                </label>
             </div>
 
             <div>
                 <button id="log-cancel-button">Cancel</button>
                 <button id="log-reset-button">Reset</button>
-                 <button id="log-previous-button" disabled>Previous</button>
-                <button id="log-next-button">Next</button>
+                <button id="log-previous-button">Previous</button>
+                <button type="submit" id="log-next-button" value="bum"></button>
             </div>
         </form>
     </dialog>   
@@ -84,6 +94,12 @@
             <p id="confirmation-message"><p>
             <button id="confirmation-yes">Yes</button>
             <button id="confirmation-no">No</button>
+        </div>
+    </dialog>
+     <dialog id="error-dialog">
+        <div id="error-content">
+            <p id="error-message"><p>
+            <button id="error-okay">Okay</button>
         </div>
     </dialog>
     <script src="./assets/app.js" charset="UTF-8"></script>

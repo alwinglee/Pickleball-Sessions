@@ -7,15 +7,15 @@
 </header>
 <body>
     <button id="add-session">Click Here</button>
-    <dialog id="log-dialog">
-        <form id="log-dialog-content">
+    <dialog id="match-log-dialog">
+        <form id="match-log-form" method="dialog">
             <h3>Match Details</h3>
-            <p>* Required fields</p>
-            <div id="log-match-details">
-                <label class="log-structure" for="date">Date*
-                    <input type="date" id="date" required>
+            <p>Fill out all fields</p>
+            <div id="match-core-section">
+                <label class="form-format" for="match-date">Date
+                    <input type="date" id="match-date" required>
                 </label>
-                <label class="log-structure" for="game-type">Game Type*
+                <label class="form-format" for="game-type">Game Type
                     <select id="game-type" required>
                         <option disabled selected value>- - Select An Option - -</option>
                         <option value="Casual">Causal</option>
@@ -23,83 +23,83 @@
                         <option value="Tournament">Tournament</option>
                     </select>
                 </label>
-                <fieldset class="log-structure" id="log-match-configuration">
+                <fieldset class="form-format">
                     <legend>Match Configuration</legend>
-                    <label class="log-structure" for="log-match-format">Format
-                        <select id="log-match-format" required>
+                    <label class="form-format" for="match-format">Format
+                        <select id="match-format" required>
                             <option disabled selected value>- - Select An Option - -</option>
                             <option value="Singles">Singles</option>
                             <option value="Doubles">Doubles</option>
                         </select>
                     </label>
                     <div>
-                        <label class="log-structure">Your Team*
+                        <label class="form-format">Your Team
                             <input class="singles" id="your-team-name1" disabled type="text" min="5" max="30" placeholder="You">
                             <input class="doubles" id="your-team-name2" disabled type="text" min="5" max="30" placeholder="Teammate">
                         </label>
-                        <label class="log-structure">Opponent Team*
+                        <label class="form-format">Opponent Team
                             <input class="singles" id="opponent-team-name1" disabled type="text"min="5" max="30" placeholder="Opponent 1">
                             <input class="doubles" id="opponent-team-name2" disabled type="text"min="5" max="30" placeholder="Opponent 2">
                         </label>
                     </div>
                 </fieldset>
-                <fieldset class="log-fieldset">
+                <fieldset class="form-format">
                     <legend>Match Outcome</legend>
-                    <label class="log-structure" for="log-match-result">Result*
-                        <select id="log-match-result" required>
+                    <label class="form-format" for="match-result">Result
+                        <select id="match-result" required>
                             <option disabled selected value>- - Select An Option - -</option>
                             <option value="Win">Win</option>
                             <option value="Loss">Loss</option>
                         </select>
                     </label>
-                    <label class="log-structure" for="log-match-your-score">Your Score*
-                        <input type="number" required min="0" max="21"  id="log-match-your-score">
+                    <label class="form-format" for="match-your-score">Your Score
+                        <input type="number" required min="0" max="21"  id="match-your-score">
                     </label>
-                    <label class="log-structure" for="log-match-opponent-score">Opponent's Score*
-                        <input type="number" required min="0" max="21" id="log-match-opponent-score">
+                    <label class="form-format" for="match-opponent-score">Opponent's Score
+                        <input type="number" required min="0" max="21" id="match-opponent-score">
                     </label>
                 </fieldset>
             </div>
-            <div class="log-input-field-format" id="log-match-logistics">
-                <label class="log-structure" for="duration">Match Duration (mins.)*
-                    <input type="number" min="1" id="duration" required>
+            <div id="match-meta-section">
+                <label class="form-format" for="match-duration">Match Duration (mins.)
+                    <input type="number" min="1" id="match-duration" required>
                 </label>
                 <fieldset>
                     <legend>Match Location</legend>
-                    <label class="log-structure" for="court">Court Name*
-                        <input type="text" required min="1" max=30 id="court" placeholder="Palmer Pickleball Courts">
+                    <label class="form-format" for="match-court">Court Name
+                        <input type="text" required min="1" max=30 id="match-court" placeholder="Palmer Pickleball Courts">
                     </label>
-                    <label class="log-structure" for="city">City*
-                        <input type="text" required min="1" max=30 id="city" placeholder="Burlington">
+                    <label class="form-format" for="match-city">City
+                        <input type="text" required min="1" max=30 id="match-city" placeholder="Burlington">
                     </label>
-                    <label class="log-structure" for="province">Province*
-                        <input type="text" required min="1" max=30 id="province" placeholder="Ontario">
+                    <label class="form-format" for="match-province">Province
+                        <input type="text" required min="1" max=30 id="match-province" placeholder="Ontario">
                     </label>
                 </fieldset>
-                <label class="log-structure" for="paddle">Paddle Used
-                    <input type="text" max="30" id="paddle" required>
+                <label class="form-format" for="match-paddle">Paddle Used
+                    <input type="text" max="30" id="match-paddle" required>
                 </label>
             </div>
 
             <div>
-                <button id="log-cancel-button">Cancel</button>
-                <button id="log-reset-button">Reset</button>
-                <button id="log-previous-button">Previous</button>
-                <button type="submit" id="log-next-button" value="bum"></button>
+                <button type="button" id="match-cancel-btn">Cancel</button>
+                <button type="button" id="match-reset-btn">Reset</button>
+                <button type="button" id="match-previous-btn">Previous</button>
+                <button type="button" id="match-progress-btn"></button>
             </div>
         </form>
     </dialog>   
     <dialog id="confirmation-dialog">
         <div id="confirmation-content">
             <p id="confirmation-message"><p>
-            <button id="confirmation-yes">Yes</button>
-            <button id="confirmation-no">No</button>
+            <button id="confirmation-yes-btn">Yes</button>
+            <button id="confirmation-no-btn">No</button>
         </div>
     </dialog>
      <dialog id="error-dialog">
         <div id="error-content">
             <p id="error-message"><p>
-            <button id="error-okay">Okay</button>
+            <button id="error-okay-btn">Okay</button>
         </div>
     </dialog>
     <script src="./assets/app.js" charset="UTF-8"></script>

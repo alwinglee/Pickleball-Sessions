@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset = "UTF-8">
-    <title>Board Game Tracker</title>
+    <title>Pickleball Session Tracker</title>
     <link rel="stylesheet" href="./assets/style.css">
 </header>
 <body>
-    <button id="add-session">Click Here</button>
+    <button id="add-session">New Session</button>
     <dialog id="match-log-dialog">
         <form id="match-log-form" method="dialog">
             <h3>Match Details</h3>
@@ -82,7 +82,7 @@
             </div>
 
             <div>
-                <button type="button" id="match-cancel-btn">Cancel</button>
+                <button type="button" id="match-exit-btn">Exit</button>
                 <button type="button" id="match-reset-btn">Reset</button>
                 <button type="button" id="match-previous-btn">Previous</button>
                 <button type="button" id="match-progress-btn"></button>
@@ -102,6 +102,10 @@
             <button id="error-okay-btn">Okay</button>
         </div>
     </dialog>
+    <main>
+        <ol id="pickleball-match-list">
+        </ol>
+    </main>
     <script src="./assets/app.js" charset="UTF-8"></script>
 </body>
 </html>

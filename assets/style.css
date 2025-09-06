@@ -10,3 +10,48 @@
 .hidden{
     display:none;
 }
+
+#validated-match-display-list{
+    padding:0;
+}
+
+
+/* Displaying Match*/
+.matchFormat{
+    list-style-type: none;
+    display: flex;
+    flex-direction:row;
+    border: black 1px solid;
+    border-radius: 8px;
+    padding:10px;
+    margin:10px;
+}
+
+.background-colour-Win{
+    background-color: lightgreen;
+}
+
+.background-colour-Loss{
+    background-color: lightcoral;
+}
+
+
+.section{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    padding:30px;
+    border-radius: 8px;
+    margin:2px;
+}
+
+.section-button{
+    display:flex;
+    flex-direction:row;
+    padding:30px;
+    margin:15px;
+    align-items: center; 
+    justify-content: center;
+}
+
+

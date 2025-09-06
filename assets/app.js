@@ -1,11 +1,12 @@
-
 // Other
 const addSession = document.getElementById("add-session")
+const validatedMatchDisplayList = document.getElementById("validated-match-display-list")
+let validatedMatch =[];
 
 // Log Dialog 
 const matchLogDialog = document.getElementById("match-log-dialog")
 const matchLogForm = document.getElementById("match-log-form")
-const matchCancelButton = document.getElementById("match-cancel-btn")
+const matchExitButton = document.getElementById("match-exit-btn")
 const matchResetButton=document.getElementById("match-reset-btn")
 const matchDate = document.getElementById("match-date")
 const matchProgressButton = document.getElementById("match-progress-btn")
@@ -17,6 +18,10 @@ const matchResult = document.getElementById("match-result")
 const matchYourScore=document.getElementById("match-your-score")
 const matchOpponentScore=document.getElementById("match-opponent-score")
 const matchDuration = document.getElementById("match-duration")
+const matchCourt= document.getElementById("match-court")
+const matchCity= document.getElementById("match-city")
+const matchProvince = document.getElementById("match-province")
+const matchPaddle = document.getElementById("match-paddle")
 
 // Confirmation Dialog
 const confirmationDialog=document.getElementById("confirmation-dialog")
@@ -29,8 +34,9 @@ const errorDialog=document.getElementById("error-dialog")
 const errorDialogOkayButton= document.getElementById("error-okay-btn")
 const errorMessage=document.getElementById("error-message")
 
-addSession.addEventListener("click",()=>{launchMatchLogDialog()})
-matchCancelButton.addEventListener("click",handleCancelLogClick);
+// Button Event Listeners
+addSession.addEventListener("click",launchMatchLogDialog)
+matchExitButton.addEventListener("click",handleExitLogClick);
 matchResetButton.addEventListener("click",handleResetLogClick);
 matchProgressButton.addEventListener("click",validateFormContent);
 matchFormat.addEventListener("change", handleMatchFormatChange);
@@ -43,11 +49,28 @@ function launchMatchLogDialog(){
     matchDate.valueAsDate=new Date();
 }
 
+async function deleteMatch(id){
+    let userOutcome = await activiateConfirmationDialog("Do you wish to delete this?");
+    if (userOutcome){
+        let indexPosition=0;
+        for (let x=0; x<validatedMatch.length;x++){
+            if (id === validatedMatch[x].id){
+                indexPosition=x;
+                break;
+            } else{
+                indexPosition++;
+            }
+        }
+        validatedMatch.splice(indexPosition,1);
+        validatedMatchDisplayList.children[indexPosition].remove();
+    }
+}
+
 function handlePreviousClick(){
     toggleFormPages("one")
 }
 
-async function handleCancelLogClick(){
+async function handleExitLogClick(){
     let userOutcome = await activiateConfirmationDialog("All progress will be lost. Continue?")
     if (userOutcome){
         matchLogDialog.close()
@@ -111,7 +134,7 @@ function resetLogDialog(){
         input.value=""
         input.disabled=true
         input.required=false
-    })
+    })  
 }
 
 function toggleFormPages(currentPage){
@@ -134,6 +157,47 @@ function toggleFormPages(currentPage){
     matchProgressButton.textContent=currentPageSettings["buttonText"]
 }
 
+function displayValidatedMatchOnPage(){
+    const pickleballMatch ={
+        "id": new Date().getTime(),
+        "date": matchDate.value,
+        "format": matchFormat.value,
+        "result": matchResult.value,
+        "yourScore": matchYourScore.value,
+        "opponentScore": matchOpponentScore.value,
+        "duration": matchDuration.value,
+        "court": matchCourt.value.trim(),
+        "city":matchCity.value.trim(),
+        "province": matchProvince.value.trim(),
+        "paddle": matchPaddle.value.trim(),
+    }
+
+    const match = document.createElement("li");
+    match.className = "matchFormat"
+    match.innerHTML = `
+    <div class="section background-colour-${pickleballMatch.result}">
+        <h3>${pickleballMatch.result}<br>${pickleballMatch.yourScore} - ${pickleballMatch.opponentScore}</h3>
+    </div>
+    <div class="section">
+       <p>${pickleballMatch.format}</p>
+        <p>${pickleballMatch.date}</p>
+        <p>${pickleballMatch.city}, ${pickleballMatch.province}</p>
+        <p>${pickleballMatch.duration} min.</p>
+    </div>
+    <div class="section-button">
+        <button type=button id="edit-btn">📝</button>
+        <button type=button id="delete-btn">❌</button>
+    </div>
+    `;
+    const existingMatchDeleteButton = match.querySelector("#delete-btn");
+    const existingMatchEditButton = match.querySelector("#edit-btn");
+    validatedMatch.push(pickleballMatch)
+    validatedMatchDisplayList.appendChild(match)
+    existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
+    // existingMatchEditButton.addEventListener("click",editExistingMatch);
+    matchLogDialog.close()
+}
+
 // VALIDATION 
 function activateErrorDialog(message){
     errorMessage.textContent=`${message}`
@@ -142,16 +206,15 @@ function activateErrorDialog(message){
 }
 
 async function validateFormContent(){
-    let shouldProceed = false
     try{
         await validateEachInputField()
-        shouldProceed=true
+        if (matchProgressButton.textContent==="Submit"){
+            displayValidatedMatchOnPage()
+        } else{
+             toggleFormPages("two")
+        }
     } catch (error){
         activateErrorDialog(error)
-    }
-
-    if (shouldProceed){
-        toggleFormPages("two")
     }
 }
 

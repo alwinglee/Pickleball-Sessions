@@ -2,6 +2,7 @@
 const addSession = document.getElementById("add-session")
 const validatedMatchDisplayList = document.getElementById("validated-match-display-list")
 let validatedMatch =[];
+let editMatchID =null;
 
 // Log Dialog 
 const matchLogDialog = document.getElementById("match-log-dialog")
@@ -14,6 +15,10 @@ const matchCoreSection = document.getElementById("match-core-section")
 const matchMetaSection =  document.getElementById("match-meta-section")
 const matchPreviousButton = document.getElementById("match-previous-btn")
 const matchFormat = document.getElementById("match-format")
+const matchYourTeamName1 = document.getElementById("your-team-name1")
+const matchYourTeamName2 = document.getElementById("your-team-name2")
+const matchOpponentName1 = document.getElementById("opponent-team-name1")
+const matchOpponentName2 = document.getElementById("opponent-team-name2")
 const matchResult = document.getElementById("match-result")
 const matchYourScore=document.getElementById("match-your-score")
 const matchOpponentScore=document.getElementById("match-opponent-score")
@@ -49,21 +54,50 @@ function launchMatchLogDialog(){
     matchDate.valueAsDate=new Date();
 }
 
-async function deleteMatch(id){
-    let userOutcome = await activiateConfirmationDialog("Do you wish to delete this?");
-    if (userOutcome){
-        let indexPosition=0;
+function confirmMatchID(id){
+     let indexPosition=-1;
         for (let x=0; x<validatedMatch.length;x++){
             if (id === validatedMatch[x].id){
                 indexPosition=x;
                 break;
-            } else{
-                indexPosition++;
             }
         }
-        validatedMatch.splice(indexPosition,1);
-        validatedMatchDisplayList.children[indexPosition].remove();
+    return indexPosition;
+}
+
+async function deleteMatch(id){
+    let userOutcome = await activiateConfirmationDialog("Do you wish to delete this?");
+    if (userOutcome){
+       let matchPosition = confirmMatchID(id)
+       if (matchPosition !==-1){
+            validatedMatch.splice(matchPosition,1);
+             validatedMatchDisplayList.children[matchPosition].remove();
+       }
     }
+}
+
+function editExistingMatch(id){
+    let matchPosition = confirmMatchID(id)
+    if (matchPosition !==-1){
+        let foundMatch = validatedMatch[matchPosition]
+        matchDate.value= foundMatch.date
+        matchFormat.value= foundMatch.format
+        matchYourTeamName1.value= foundMatch.yourTeamName1
+        matchYourTeamName2.value = foundMatch.yourTeamName2
+        matchOpponentName1.value = foundMatch.opponentTeamName1
+        matchOpponentName2.value = foundMatch.opponentTeamName2
+        matchResult.value = foundMatch.result
+        matchYourScore.value = foundMatch.yourScore
+        matchOpponentScore.value = foundMatch.opponentScore
+        matchDuration.value = foundMatch.duration
+        matchCourt.value = foundMatch.court
+        matchCity.value = foundMatch.city
+        matchProvince.value= foundMatch.province
+        matchPaddle.value = foundMatch.paddle
+        editMatchID = id;
+        matchLogDialog.showModal()
+        toggleFormPages("one")
+    }  
 }
 
 function handlePreviousClick(){
@@ -148,53 +182,93 @@ function toggleFormPages(currentPage){
         "activePage": matchMetaSection,
         "hidePage": matchCoreSection,
         "buttonText": "Submit",
-        }
+        },
     }
     let currentPageSettings = formPages[currentPage]
     currentPageSettings["activePage"].hidden=false
     currentPageSettings["hidePage"].hidden=true
     matchPreviousButton.disabled = currentPage==="one"
     matchProgressButton.textContent=currentPageSettings["buttonText"]
+
+}
+
+function capitalizeString(word){
+    let splitWord = word.split(" ");
+    for (let x=0; x<splitWord.length;x++){
+        splitWord[x]= splitWord[x].charAt(0).toUpperCase()+splitWord[x].slice(1)
+    }
+    return splitWord.join(" ");
 }
 
 function displayValidatedMatchOnPage(){
     const pickleballMatch ={
-        "id": new Date().getTime(),
+        "id": editMatchID || new Date().getTime(),
         "date": matchDate.value,
         "format": matchFormat.value,
+        "yourTeamName1": capitalizeString(matchYourTeamName1.value.trim()),
+        "yourTeamName2": capitalizeString(matchYourTeamName2.value.trim()),
+        "opponentTeamName1": capitalizeString(matchOpponentName1.value.trim()),
+        "opponentTeamName2": capitalizeString(matchOpponentName2.value.trim()),
         "result": matchResult.value,
         "yourScore": matchYourScore.value,
         "opponentScore": matchOpponentScore.value,
         "duration": matchDuration.value,
-        "court": matchCourt.value.trim(),
-        "city":matchCity.value.trim(),
-        "province": matchProvince.value.trim(),
-        "paddle": matchPaddle.value.trim(),
+        "court": capitalizeString(matchCourt.value.trim()),
+        "city":capitalizeString(matchCity.value.trim()),
+        "province": capitalizeString(matchProvince.value.trim()),
+        "paddle": capitalizeString(matchPaddle.value.trim()),
     }
 
     const match = document.createElement("li");
-    match.className = "matchFormat"
+    match.className = "matchCard"
     match.innerHTML = `
-    <div class="section background-colour-${pickleballMatch.result}">
+    <div class="matchCard-result background-colour-${pickleballMatch.result}">
         <h3>${pickleballMatch.result}<br>${pickleballMatch.yourScore} - ${pickleballMatch.opponentScore}</h3>
     </div>
-    <div class="section">
-       <p>${pickleballMatch.format}</p>
+    <div class="matchCard-details">
+    <p>${pickleballMatch.format}</p>
         <p>${pickleballMatch.date}</p>
-        <p>${pickleballMatch.city}, ${pickleballMatch.province}</p>
         <p>${pickleballMatch.duration} min.</p>
+        <p>${pickleballMatch.court}</p>
+        <p>${pickleballMatch.city}, ${pickleballMatch.province}</p>
     </div>
-    <div class="section-button">
+    <div class="matchCard-teams">
+        <div class="matchCard-individual-teams">
+            <p>${pickleballMatch.yourTeamName1}</p>
+            <p>${pickleballMatch.yourTeamName2}</p>
+        </div>
+        <div>
+            <p>VS</p>
+        </div>
+        <div class="matchCard-individual-teams">
+            <p>${pickleballMatch.opponentTeamName1}</p>
+            <p>${pickleballMatch.opponentTeamName2}</p>
+        </div>
+    </div>
+    <div class="matchCard-button">
         <button type=button id="edit-btn">📝</button>
         <button type=button id="delete-btn">❌</button>
     </div>
     `;
-    const existingMatchDeleteButton = match.querySelector("#delete-btn");
-    const existingMatchEditButton = match.querySelector("#edit-btn");
-    validatedMatch.push(pickleballMatch)
-    validatedMatchDisplayList.appendChild(match)
-    existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
-    // existingMatchEditButton.addEventListener("click",editExistingMatch);
+    
+
+    if (!editMatchID){
+        validatedMatch.push(pickleballMatch)
+        validatedMatchDisplayList.appendChild(match)
+        const existingMatchDeleteButton = match.querySelector("#delete-btn");
+        const existingMatchEditButton = match.querySelector("#edit-btn");
+        existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
+        existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
+    } else{
+        let matchPosition = confirmMatchID(editMatchID);
+        validatedMatch.splice(matchPosition,1,pickleballMatch)
+        validatedMatchDisplayList.replaceChild(match,validatedMatchDisplayList.children[matchPosition]);
+        editMatchID = null;
+        const existingMatchDeleteButton = match.querySelector("#delete-btn");
+        const existingMatchEditButton = match.querySelector("#edit-btn");
+        existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
+        existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
+    }
     matchLogDialog.close()
 }
 
@@ -206,6 +280,7 @@ function activateErrorDialog(message){
 }
 
 async function validateFormContent(){
+
     try{
         await validateEachInputField()
         if (matchProgressButton.textContent==="Submit"){

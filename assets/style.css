@@ -15,16 +15,23 @@
     padding:0;
 }
 
-
 /* Displaying Match*/
-.matchFormat{
+.matchCard{
     list-style-type: none;
     display: flex;
     flex-direction:row;
     border: black 1px solid;
     border-radius: 8px;
-    padding:10px;
+}
+
+.matchCard-result{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
     margin:10px;
+    border-radius: 8px;
 }
 
 .background-colour-Win{
@@ -35,17 +42,33 @@
     background-color: lightcoral;
 }
 
-
-.section{
+.matchCard-details{
     display:flex;
     flex-direction:column;
     justify-content: center;
+    padding:20px;
+}
+
+.matchCard-teams{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
     padding:30px;
     border-radius: 8px;
     margin:2px;
 }
 
-.section-button{
+.matchCard-individual-teams p{
+     display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    padding:0px;
+    margin:0px;
+}
+
+.matchCard-button{
     display:flex;
     flex-direction:row;
     padding:30px;

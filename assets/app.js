@@ -200,7 +200,8 @@ function capitalizeString(word){
     return splitWord.join(" ");
 }
 
-function displayValidatedMatchOnPage(){
+async function displayValidatedMatchOnPage(){
+    
     const pickleballMatch ={
         "id": editMatchID || new Date().getTime(),
         "date": matchDate.value,
@@ -222,25 +223,25 @@ function displayValidatedMatchOnPage(){
     const match = document.createElement("li");
     match.className = "matchCard"
     match.innerHTML = `
-    <div class="matchCard-result background-colour-${pickleballMatch.result}">
+    <div class="matchCard-column1 background-colour-${pickleballMatch.result}">
         <h3>${pickleballMatch.result}<br>${pickleballMatch.yourScore} - ${pickleballMatch.opponentScore}</h3>
     </div>
-    <div class="matchCard-details">
-    <p>${pickleballMatch.format}</p>
+    <div class="matchCard-column2 matchCard-details">
+        <p>${pickleballMatch.format}</p>
         <p>${pickleballMatch.date}</p>
         <p>${pickleballMatch.duration} min.</p>
         <p>${pickleballMatch.court}</p>
         <p>${pickleballMatch.city}, ${pickleballMatch.province}</p>
     </div>
-    <div class="matchCard-teams">
-        <div class="matchCard-individual-teams">
+    <div class="matchCard-column3">
+        <div class="matchCard-teams">
             <p>${pickleballMatch.yourTeamName1}</p>
             <p>${pickleballMatch.yourTeamName2}</p>
         </div>
         <div>
             <p>VS</p>
         </div>
-        <div class="matchCard-individual-teams">
+        <div class="matchCard-teams">
             <p>${pickleballMatch.opponentTeamName1}</p>
             <p>${pickleballMatch.opponentTeamName2}</p>
         </div>
@@ -251,7 +252,6 @@ function displayValidatedMatchOnPage(){
     </div>
     `;
     
-
     if (!editMatchID){
         validatedMatch.push(pickleballMatch)
         validatedMatchDisplayList.appendChild(match)
@@ -259,17 +259,21 @@ function displayValidatedMatchOnPage(){
         const existingMatchEditButton = match.querySelector("#edit-btn");
         existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
         existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
+         matchLogDialog.close();
     } else{
-        let matchPosition = confirmMatchID(editMatchID);
-        validatedMatch.splice(matchPosition,1,pickleballMatch)
-        validatedMatchDisplayList.replaceChild(match,validatedMatchDisplayList.children[matchPosition]);
-        editMatchID = null;
-        const existingMatchDeleteButton = match.querySelector("#delete-btn");
-        const existingMatchEditButton = match.querySelector("#edit-btn");
-        existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
-        existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
+        let userOutcome = await activiateConfirmationDialog("Confirm Changes?")
+        if (userOutcome){
+            let matchPosition = confirmMatchID(editMatchID);
+            validatedMatch.splice(matchPosition,1,pickleballMatch)
+            validatedMatchDisplayList.replaceChild(match,validatedMatchDisplayList.children[matchPosition]);
+            editMatchID = null;
+            const existingMatchDeleteButton = match.querySelector("#delete-btn");
+            const existingMatchEditButton = match.querySelector("#edit-btn");
+            existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
+            existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
+             matchLogDialog.close();
+            }
     }
-    matchLogDialog.close()
 }
 
 // VALIDATION 
@@ -280,7 +284,6 @@ function activateErrorDialog(message){
 }
 
 async function validateFormContent(){
-
     try{
         await validateEachInputField()
         if (matchProgressButton.textContent==="Submit"){

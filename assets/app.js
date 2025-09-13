@@ -107,14 +107,16 @@ function handlePreviousClick(){
 async function handleExitLogClick(){
     let userOutcome = await activiateConfirmationDialog("All progress will be lost. Continue?")
     if (userOutcome){
-        matchLogDialog.close()
+        editMatchID=null;
+        matchLogDialog.close();
     }
 }
 
 async function handleResetLogClick(){
     let userOutcome = await activiateConfirmationDialog("Reset form and begin again?")
     if (userOutcome){
-        resetLogDialog()
+        editMatchID=null;
+        resetLogDialog();
     }
 }
 
@@ -145,7 +147,7 @@ function handleMatchFormatChange(e){
 
 function activiateConfirmationDialog(message) {
     confirmationDialog.showModal();
-    confirmationMessage.textContent = `${message}`;
+    confirmationMessage.textContent =`${message}`;
     
     return new Promise((resolve) => {
         function yes(){
@@ -189,7 +191,6 @@ function toggleFormPages(currentPage){
     currentPageSettings["hidePage"].hidden=true
     matchPreviousButton.disabled = currentPage==="one"
     matchProgressButton.textContent=currentPageSettings["buttonText"]
-
 }
 
 function capitalizeString(word){
@@ -272,7 +273,7 @@ async function displayValidatedMatchOnPage(){
             existingMatchDeleteButton.addEventListener("click", deleteMatch.bind(null,pickleballMatch.id));
             existingMatchEditButton.addEventListener("click", () => editExistingMatch(pickleballMatch.id));    
              matchLogDialog.close();
-            }
+        }
     }
 }
 

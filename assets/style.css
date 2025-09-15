@@ -1,8 +1,24 @@
+/* Form & Dialog */
 .form-format{
     display:flex;
     flex-direction:column;
 }
 
+#match-log-dialog{
+    width:24%;
+}
+
+input, select{
+    padding:0.5%;
+}
+    
+#form-button{
+    display:flex;
+    margin-top:1rem;
+    justify-content: space-between;
+}
+
+/* DOM */
 .visible{
     display:block;
 }
@@ -11,27 +27,113 @@
     display:none;
 }
 
-#validated-match-display-list{
-    padding:0;
+
+/* Header */
+header{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    background-color:lightgray;
+    border-radius: 8px;
+    margin-left: 8%;
+    margin-right:8%;
+}
+
+.header-grid-column1{
+    display:flex;
+    justify-content: flex-start;
+}
+
+.header-grid-column2{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.header-grid-column2 button{
+    background-color: transparent;
+    border:none;
+}
+
+.header-grid-column2 button:hover{
+    background-color: white;
+    border-radius:5px;
+}
+
+/* Confirmation Dialog & Error Dialog */
+#confirmation-button, #error-button{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#confirmation-button button, #error-button button{
+    margin:3%;
 }
 
 /* Displaying Match*/
-.matchCard{
-    list-style-type: none;
-    display: flex;
-    flex-direction:row;
-    border: black 1px solid;
-    border-radius: 8px;
+#validated-match-display-list{
+    margin-left: 17%;
+    margin-right:17%;
 }
 
-.matchCard-result{
+.matchCard{
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0.25fr;
+    border: black 1px solid;
+    border-radius: 8px;
+    margin:1rem;
+}
+
+.matchCard-column{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding:20px;
-    margin:10px;
-    border-radius: 8px;
+}
+
+.matchCard-details{
+    align-items: normal;
+    margin:1rem;
+}
+
+.matchCard-details p{
+    padding:0px;
+    margin:0px;
+}
+
+.matchCard-team{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.matchCard-team-name{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.matchCard-team-name p{
+    margin:1rem;
+}
+
+p, span{overflow: hidden; white-space: nowrap;}
+
+.matchCard-button{
+    display:flex;
+    flex-direction:row;
+    padding:30px;
+    margin:15px;
+    align-items: center; 
+    justify-content: center;
+}
+
+.matchCard-button button{
+    margin:4%;
+    font-size:1rem;
 }
 
 .background-colour-Win{
@@ -42,39 +144,6 @@
     background-color: lightcoral;
 }
 
-.matchCard-details{
-    display:flex;
-    flex-direction:column;
-    justify-content: center;
-    padding:20px;
-}
 
-.matchCard-teams{
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    padding:30px;
-    border-radius: 8px;
-    margin:2px;
-}
-
-.matchCard-individual-teams p{
-     display: flex;
-    flex-direction:column;
-    justify-content: center;
-    align-items: center;
-    padding:0px;
-    margin:0px;
-}
-
-.matchCard-button{
-    display:flex;
-    flex-direction:row;
-    padding:30px;
-    margin:15px;
-    align-items: center; 
-    justify-content: center;
-}
 
 

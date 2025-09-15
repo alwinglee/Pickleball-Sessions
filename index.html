@@ -6,10 +6,20 @@
     <link rel="stylesheet" href="./assets/style.css">
 </header>
 <body>
-    <button id="add-session">New Session</button>
+    <header>
+        <div class="header-grid-column1">
+            <h1>Pickleball Session Tracker</h1>
+        </div>
+        <div class="header-grid-column2">
+            <button id="add-session">New Session</button>
+            <button type ="button">Place Holder</button>
+            <button type="button">Place Holder</button>
+            <button type="button">Place holder</button>
+        </div>
+    </header>
     <dialog id="match-log-dialog">
         <form id="match-log-form" method="dialog">
-            <h3>Match Details</h3>
+            <h3>New Session</h3>
             <p>Fill out all fields</p>
             <div id="match-core-section">
                 <label class="form-format" for="match-date">Date
@@ -34,12 +44,12 @@
                     </label>
                     <div>
                         <label class="form-format">Your Team
-                            <input class="singles" id="your-team-name1" disabled type="text" min="5" max="30" placeholder="You">
-                            <input class="doubles" id="your-team-name2" disabled type="text" min="5" max="30" placeholder="Teammate">
+                            <input class="singles" id="your-team-name1" disabled type="text" min="5" max="20" placeholder="You">
+                            <input class="doubles" id="your-team-name2" disabled type="text" min="5" max="20" placeholder="Teammate">
                         </label>
                         <label class="form-format">Opponent Team
-                            <input class="singles" id="opponent-team-name1" disabled type="text"min="5" max="30" placeholder="Opponent 1">
-                            <input class="doubles" id="opponent-team-name2" disabled type="text"min="5" max="30" placeholder="Opponent 2">
+                            <input class="singles" id="opponent-team-name1" disabled type="text"min="1" max="20" placeholder="Opponent 1">
+                            <input class="doubles" id="opponent-team-name2" disabled type="text"min="1" max="20" placeholder="Opponent 2">
                         </label>
                     </div>
                 </fieldset>
@@ -67,43 +77,50 @@
                 <fieldset>
                     <legend>Match Location</legend>
                     <label class="form-format" for="match-court">Court Name
-                        <input type="text" required min="1" max=30 id="match-court" placeholder="Palmer Pickleball Courts">
+                        <input type="text" required min="1" max=20 id="match-court" placeholder="Palmer Pickleball Courts">
                     </label>
                     <label class="form-format" for="match-city">City
-                        <input type="text" required min="1" max=30 id="match-city" placeholder="Burlington">
+                        <input type="text" required min="1" max=20 id="match-city" placeholder="Burlington">
                     </label>
                     <label class="form-format" for="match-province">Province
-                        <input type="text" required min="1" max=30 id="match-province" placeholder="Ontario">
+                        <input type="text" required min="1" max=20 id="match-province" placeholder="Ontario">
                     </label>
                 </fieldset>
                 <label class="form-format" for="match-paddle">Paddle Used
-                    <input type="text" max="30" id="match-paddle" required>
+                    <input type="text" max="20" id="match-paddle" required>
                 </label>
             </div>
-
-            <div>
-                <button type="button" id="match-exit-btn">Exit</button>
-                <button type="button" id="match-reset-btn">Reset</button>
-                <button type="button" id="match-previous-btn">Previous</button>
-                <button type="button" id="match-progress-btn"></button>
+            <div id="form-button">
+                <div class="exit-reset-button">
+                    <button type="button" id="match-exit-btn">Exit</button>
+                    <button type="button" id="match-reset-btn">Reset</button>
+                </div>
+                <div class="progress-previous-button">
+                    <button type="button" id="match-previous-btn">Previous</button>
+                    <button type="button" id="match-progress-btn"></button>
+                </div>
             </div>
         </form>
     </dialog>   
     <dialog id="confirmation-dialog">
         <div id="confirmation-content">
-            <p id="confirmation-message"><p>
-            <button id="confirmation-yes-btn">Yes</button>
-            <button id="confirmation-no-btn">No</button>
+            <p id="confirmation-message"></p>
+            <div id="confirmation-button">
+                <button id="confirmation-yes-btn">Yes</button>
+                <button id="confirmation-no-btn">No</button>
+            </div>
         </div>
     </dialog>
      <dialog id="error-dialog">
         <div id="error-content">
-            <p id="error-message"><p>
-            <button id="error-okay-btn">Okay</button>
+            <p id="error-message"></p>
+            <div id="error-button">
+                <button id="error-okay-btn">Okay</button>
+            </div>
         </div>
     </dialog>
     <main>
-        <ol id="pickleball-match-list">
+        <ol id="validated-match-display-list">
         </ol>
     </main>
     <script src="./assets/app.js" charset="UTF-8"></script>
